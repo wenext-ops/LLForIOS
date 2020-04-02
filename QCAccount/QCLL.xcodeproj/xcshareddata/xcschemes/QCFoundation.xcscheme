@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ED3FDA932418D99300EE60D5"
-               BuildableName = "QCAPISets.framework"
-               BlueprintName = "QCAPISets"
-               ReferencedContainer = "container:QCAccount.xcodeproj">
+               BlueprintIdentifier = "ED0AE10F2419C4FF009E8706"
+               BuildableName = "QCFoundation.framework"
+               BlueprintName = "QCFoundation"
+               ReferencedContainer = "container:QCLL.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -50,10 +50,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "ED3FDA932418D99300EE60D5"
-            BuildableName = "QCAPISets.framework"
-            BlueprintName = "QCAPISets"
-            ReferencedContainer = "container:QCAccount.xcodeproj">
+            BlueprintIdentifier = "ED0AE10F2419C4FF009E8706"
+            BuildableName = "QCFoundation.framework"
+            BlueprintName = "QCFoundation"
+            ReferencedContainer = "container:QCLL.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

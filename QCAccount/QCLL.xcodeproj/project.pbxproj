@@ -546,7 +546,7 @@
 					};
 				};
 			};
-			buildConfigurationList = ED2128772395130100DB8C53 /* Build configuration list for PBXProject "QCAccount" */;
+			buildConfigurationList = ED2128772395130100DB8C53 /* Build configuration list for PBXProject "QCLL" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -935,7 +935,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ED2128772395130100DB8C53 /* Build configuration list for PBXProject "QCAccount" */ = {
+		ED2128772395130100DB8C53 /* Build configuration list for PBXProject "QCLL" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ED2128832395130100DB8C53 /* Debug */,
