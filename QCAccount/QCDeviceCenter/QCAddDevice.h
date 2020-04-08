@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol QCAddDeviceProtocol
 
+@property (nonatomic,readonly) BOOL isConnecting;//是否正在配网中
+
 /// 开始配网流程
 - (void)startAddDevice;
 

@@ -31,9 +31,17 @@
 @property (atomic, strong) ESPTouchTask *esptouchTask;
 @property (nonatomic, strong) NSCondition *condition;
 @property (nonatomic, strong) TCSocket *socket;
+
+@property (nonatomic) BOOL connecting;
+
 @end
 
 @implementation QCSmartConfig
+
+- (BOOL)isConnecting
+{
+    return self.connecting;
+}
 
 - (instancetype)initWithSSID:(NSString *)ssid PWD:(NSString *)password BSSID:(NSString *)bssid
 {
@@ -48,11 +56,12 @@
 
 
 - (void)startAddDevice {
+    _connecting = YES;
     [self tapConfirmForResults];
 }
 
 - (void)stopAddDevice {
-    
+    _connecting = NO;
     [self.condition lock];
     if (self.esptouchTask != nil)
     {
@@ -119,6 +128,7 @@
                 {
                     //没发现设备
                     if ([self.delegate respondsToSelector:@selector(onResult:)]) {
+                        self.connecting = NO;
                         QCResult *result = [QCResult new];
                         result.code = 5000;
                         result.errMsg = @"未发现设备";
@@ -174,6 +184,7 @@
         if (JSONParsingError != nil) {
             //失败
             if ([self.delegate respondsToSelector:@selector(onResult:)]) {
+                self.connecting = NO;
                 QCResult *result = [QCResult new];
                 result.code = 5001;
                 result.errMsg = @"解析失败";
@@ -182,6 +193,7 @@
         } else {
             //成功
             if ([self.delegate respondsToSelector:@selector(onResult:)]) {
+                self.connecting = NO;
                 QCResult *result = [QCResult new];
                 result.code = 0;
                 result.signatureInfo = [NSObject base64Encode:dictionary];
@@ -216,9 +228,17 @@
 @property (nonatomic, strong) dispatch_source_t timer2;
 @property (nonatomic) NSUInteger sendCount2;
 
+
+@property (nonatomic) BOOL connecting;
+
 @end
 
 @implementation QCSoftAP
+
+- (BOOL)isConnecting
+{
+    return self.connecting;
+}
 
 - (instancetype)initWithSSID:(NSString *)ssid PWD:(NSString *)password
 {
@@ -231,11 +251,13 @@
 }
 
 - (void)startAddDevice {
+    self.connecting = YES;
     NSString *gateway = [self getGateway];
     [self createudpConnect:gateway];
 }
 
 - (void)stopAddDevice {
+    self.connecting = NO;
     if (self.timer != nil) {
         dispatch_source_cancel(self.timer);
     }
@@ -263,6 +285,7 @@
     if (![self.socket bindToPort:55551 error:&error]) {     // 端口绑定
         WCLog(@"bindToPort: %@", error);
         //连接失败
+        self.connecting = NO;
         if ([self.delegate respondsToSelector:@selector(onResult:)]) {
             QCResult *result = [QCResult new];
             result.code = 6003;
@@ -274,6 +297,7 @@
     if (![self.socket beginReceiving:&error]) {     // 开始监听
         WCLog(@"beginReceiving: %@", error);
         //连接失败
+        self.connecting = NO;
         if ([self.delegate respondsToSelector:@selector(onResult:)]) {
             QCResult *result = [QCResult new];
             result.code = 6003;
@@ -287,6 +311,7 @@
     if (![self.socket connectToHost:ip onPort:8266 error:&error]) {   // 连接服务器
         WCLog(@"连接失败：%@", error);
         //连接失败
+        self.connecting = NO;
         if ([self.delegate respondsToSelector:@selector(onResult:)]) {
             QCResult *result = [QCResult new];
             result.code = 6003;
@@ -356,6 +381,7 @@
             dispatch_source_cancel(self.timer);
             dispatch_async(dispatch_get_main_queue(), ^{
                //连接失败,模组有问题
+                self.connecting = NO;
                 if ([self.delegate respondsToSelector:@selector(onResult:)]) {
                     QCResult *result = [QCResult new];
                     result.code = 6000;
@@ -403,6 +429,7 @@
                             dispatch_source_cancel(self.timer2);
                             dispatch_async(dispatch_get_main_queue(), ^{
                                 //连接失败,发送时间戳失败
+                                self.connecting = NO;
                                 if ([self.delegate respondsToSelector:@selector(onResult:)]) {
                                     QCResult *result = [QCResult new];
                                     result.code = 6001;
@@ -426,9 +453,10 @@
         
         
         if (![NSObject isEmptyWithObject:dictionary[@"signature"]] && [@"connected" isEqualToString:dictionary[@"wifiState"]]) {
-            NSLog(@"左边滑条");
+            
             dispatch_source_cancel(self.timer2);
             
+            self.connecting = NO;
             if ([self.delegate respondsToSelector:@selector(onResult:)]) {
                 QCResult *result = [QCResult new];
                 result.code = 0;
@@ -439,6 +467,7 @@
         else
         {
             //连接失败,模组回复信息缺失或wifiState不为connected
+            self.connecting = NO;
             if ([self.delegate respondsToSelector:@selector(onResult:)]) {
                 QCResult *result = [QCResult new];
                 result.code = 6002;
@@ -453,3 +482,4 @@
 
 
 @end
+
