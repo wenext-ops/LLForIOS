@@ -60,6 +60,10 @@
     if (reportDic == nil) {
         reportDic = payloadDic[@"payload"][@"state"];
     }
+    if (reportDic == nil) {
+        reportDic = payloadDic[@"params"];
+    }
+    
     
     NSArray *keys = [reportDic allKeys];
     for (NSString *key in keys) {
