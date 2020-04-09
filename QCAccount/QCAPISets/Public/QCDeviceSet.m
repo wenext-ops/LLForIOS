@@ -63,6 +63,21 @@
 
 - (void)activePushWithDeviceIds:(NSArray *)deviceIds complete:(Result)result
 {
+    NSDictionary *params = @{
+        @"action":@"YunApi",
+        @"reqId":[[NSUUID UUID] UUIDString],
+        @"params":@{
+            @"Action": @"AppDeviceTraceHeartBeat",
+            @"AccessToken":[QCUserManage shared].accessToken,
+            @"RequestId":@"req_heartbeat",
+            @"ActionParams": @{
+                @"DeviceIds": deviceIds
+            }
+        }
+    };
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"heartBeatStart" object:params];
+    
     [[QCSocketCover shared] registerDeviceActive:deviceIds complete:^(BOOL sucess, NSDictionary * _Nonnull data) {
         result(sucess,data);
     }];

@@ -19,7 +19,6 @@ static NSString *registDeviceReqID = @"5001";
 
 @interface QCSocketCover ()<QCSocketManagerDelegate>
 
-@property (nonatomic, strong) NSTimer *heartBeat;
 @property (nonatomic, assign) NSTimeInterval reConnectTime;
 
 
@@ -49,7 +48,6 @@ static NSString *registDeviceReqID = @"5001";
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-
 
 //注册设备监听
 - (void)registerDeviceActive:(NSArray *)deviceIds complete:(didReceiveMessage)success

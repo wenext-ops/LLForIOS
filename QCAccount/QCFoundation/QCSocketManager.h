@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+
+static NSString *socketDidOpenNotification = @"socketDidOpenNotification";
+
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, WCReadyState) {

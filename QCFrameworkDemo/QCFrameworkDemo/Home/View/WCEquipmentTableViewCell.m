@@ -97,7 +97,7 @@
 - (void)setDataDic:(NSDictionary *)dataDic{
     _dataDic = dataDic;
     
-    self.titleLab.text = dataDic[@"AliasName"];
+    self.titleLab.text = dataDic[@"DeviceName"];
     if ([dataDic[@"Online"] integerValue] == 1) {
         self.desLab.text = @"设备在线";
         self.desLab.textColor = kMainColor;

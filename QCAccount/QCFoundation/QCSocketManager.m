@@ -74,10 +74,38 @@ static NSString *heartBeatReqID = @"5002";
         [self.socket close];
         self.socket = nil;
         //断开连接时销毁心跳
-        [self destoryHeartBeat];
+        [self stopHeartBeat];
     }
 }
 
+- (void)startHeartBeat:(NSNotification *)noti
+{
+    NSDictionary *params = noti.object;
+    [self stopHeartBeat];
+    
+    self.heartBeat = [NSTimer timerWithTimeInterval:60 target:self selector:@selector(heartBeatAction:) userInfo:params repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:self.heartBeat forMode:NSRunLoopCommonModes];
+    [self.heartBeat fire];
+}
+
+- (void)stopHeartBeat
+{
+    if (self.heartBeat) {
+        if (self.heartBeat.isValid){
+            [self.heartBeat invalidate];
+            self.heartBeat = nil;
+        }
+    }
+}
+
+//ping
+- (void)heartBeatAction:(NSTimer *)timer {
+    NSDictionary *params = timer.userInfo;
+    
+    if ([QCSocketManager shared].socketReadyState == WC_OPEN) {
+        [[QCSocketManager shared] sendData:params];
+    }
+}
 
 
 
@@ -88,10 +116,11 @@ static NSString *heartBeatReqID = @"5002";
     //每次正常连接的时候清零重连时间
     self.reConnectTime = 0;
     
-    //开启心跳
-    [self performSelector:@selector(initHeartBeat) withObject:nil afterDelay:20];
-    
     if (webSocket == self.socket) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:socketDidOpenNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(startHeartBeat:) name:@"heartBeatStart" object:nil];
+        
         QCLog(@"************************** socket 连接成功************************** ");
         if ([self.delegate respondsToSelector:@selector(socketDidOpen:)]) {
             [self.delegate socketDidOpen:self];
@@ -181,47 +210,6 @@ static NSString *heartBeatReqID = @"5002";
         self.reConnectTime *= 2;
     }
     
-}
-
-//初始化心跳
-- (void)initHeartBeat
-{
-    dispatch_main_async_safe(^{
-        [self destoryHeartBeat];
-       
-        self.heartBeat = [NSTimer timerWithTimeInterval:30 target:self selector:@selector(ping) userInfo:nil repeats:YES];
-        //和服务端约定好发送什么作为心跳标识，尽可能的减小心跳包大小
-        [[NSRunLoop currentRunLoop] addTimer:self.heartBeat forMode:NSRunLoopCommonModes];
-    })
-}
-
-
-//取消心跳
-- (void)destoryHeartBeat
-{
-    dispatch_main_async_safe(^{
-        if (self.heartBeat) {
-            if ([self.heartBeat respondsToSelector:@selector(isValid)]){
-                if ([self.heartBeat isValid]){
-                    [self.heartBeat invalidate];
-                    self.heartBeat = nil;
-                }
-            }
-        }
-    })
-}
-
-//pingPong
-- (void)ping{
-    if (self.socket.readyState == QC_OPEN) {
-        NSData *data= [NSJSONSerialization dataWithJSONObject:[self heartData] options:NSJSONWritingPrettyPrinted error:nil];
-        [self.socket send:data];
-    }
-}
-
-//pingPong 数据 （心跳数据）
-- (NSDictionary *)heartData{
-    return @{@"action":@"Hello",@"reqId":heartBeatReqID};
 }
 
 

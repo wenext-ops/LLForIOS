@@ -32,6 +32,8 @@
 		ED9E665C2415E22800FA1EDF /* MessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9E665A2415E22800FA1EDF /* MessageVC.m */; };
 		ED9E665D2415E22800FA1EDF /* MessageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED9E665B2415E22800FA1EDF /* MessageVC.xib */; };
 		ED9FF5CB242375F300A191F7 /* getgateway.c in Sources */ = {isa = PBXBuildFile; fileRef = ED9FF5CA242375F300A191F7 /* getgateway.c */; };
+		EDA0D999243F162200FD67B9 /* QCAPISets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCECD69241A141100540EA5 /* QCAPISets.framework */; };
+		EDA0D99A243F162200FD67B9 /* QCFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCECD6A241A141100540EA5 /* QCFoundation.framework */; };
 		EDA2CB31239F324F00943190 /* MBProgressHUD+XDP.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA2CB2D239F324F00943190 /* MBProgressHUD+XDP.m */; };
 		EDA2CB32239F324F00943190 /* WCHudLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA2CB2E239F324F00943190 /* WCHudLoadingView.m */; };
 		EDA2CB54239FA14B00943190 /* NSObject+ro.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA2CB53239FA14B00943190 /* NSObject+ro.m */; };
@@ -68,11 +70,9 @@
 		EDC44E122412489000F99AA8 /* WCSlideView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC44E112412489000F99AA8 /* WCSlideView.m */; };
 		EDC44E1424124EEE00F99AA8 /* WCTimerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDC44E1324124EEE00F99AA8 /* WCTimerCell.xib */; };
 		EDC44E1724124FC800F99AA8 /* SelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = EDC44E1624124FC800F99AA8 /* SelectView.m */; };
-		EDDF31B0242AF7BA0032D8EE /* QCFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCECD6A241A141100540EA5 /* QCFoundation.framework */; };
 		EDEAE0132421AEFE009B6400 /* InviteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEAE0112421AEFE009B6400 /* InviteVC.m */; };
 		EDEAE0142421AEFE009B6400 /* InviteVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDEAE0122421AEFE009B6400 /* InviteVC.xib */; };
 		EDEAE0172421B7D7009B6400 /* UsersOfDeviceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEAE0162421B7D7009B6400 /* UsersOfDeviceVC.m */; };
-		EDED6A6324289986007152FC /* QCAPISets.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCECD69241A141100540EA5 /* QCAPISets.framework */; };
 		EDED6A6424289986007152FC /* QCDeviceCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCECD6B241A141100540EA5 /* QCDeviceCenter.framework */; };
 /* End PBXBuildFile section */
 
@@ -198,8 +198,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDDF31B0242AF7BA0032D8EE /* QCFoundation.framework in Frameworks */,
-				EDED6A6324289986007152FC /* QCAPISets.framework in Frameworks */,
+				EDA0D999243F162200FD67B9 /* QCAPISets.framework in Frameworks */,
+				EDA0D99A243F162200FD67B9 /* QCFoundation.framework in Frameworks */,
 				EDED6A6424289986007152FC /* QCDeviceCenter.framework in Frameworks */,
 				EDA2CB58239FA32400943190 /* NetworkExtension.framework in Frameworks */,
 				9ED1C19D801BB2B179BF1597 /* libPods-QCFrameworkDemo.a in Frameworks */,
@@ -776,7 +776,6 @@
 				DEVELOPMENT_TEAM = VVSC89559T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/QCFrameworkDemo/frame",
 					"$(PROJECT_DIR)/QCFrameworkDemo/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -804,7 +803,6 @@
 				DEVELOPMENT_TEAM = VVSC89559T;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/QCFrameworkDemo/frame",
 					"$(PROJECT_DIR)/QCFrameworkDemo/Framework",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

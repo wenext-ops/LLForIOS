@@ -12,6 +12,8 @@
 #import "CMPageTitleContentView.h"
 #import "ControlDeviceVC.h"
 
+#import <QCFoundation/QCFoundation.h>
+
 
 static NSString *cellID = @"DODO";
 @interface HomeVC ()<UITableViewDelegate,UITableViewDataSource,CMPageTitleContentViewDelegate>
@@ -27,6 +29,9 @@ static NSString *cellID = @"DODO";
 @property (nonatomic,strong) CMPageTitleContentView *roomTitlesView;
 
 
+@property dispatch_semaphore_t sem;
+@property (nonatomic, copy) NSArray *deviceIds;
+
 @end
 
 @implementation HomeVC
@@ -34,6 +39,7 @@ static NSString *cellID = @"DODO";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     
     self.title = @"首页";
     [self.tab registerClass:[WCEquipmentTableViewCell class] forCellReuseIdentifier:cellID];
@@ -131,12 +137,16 @@ static NSString *cellID = @"DODO";
 {
     [[QCDeviceSet shared] getDeviceListWithFamilyId:self.currentFamilyId roomId:self.currentRoomId ?: @"" offset:0 limit:0 success:^(id  _Nonnull responseObject) {
         self.deviceList = responseObject;
+        
+        self.deviceIds = [self.deviceList valueForKey:@"DeviceId"];
+        if (self.deviceIds && self.deviceIds.count > 0) {
+            [[QCDeviceSet shared] activePushWithDeviceIds:self.deviceIds complete:^(BOOL success, id data) {
+                
+            }];
+        }
+        
         [self.tab reloadData];
         
-        NSArray *deviceIds = [self.deviceList valueForKey:@"DeviceId"];
-        [[QCDeviceSet shared] activePushWithDeviceIds:deviceIds complete:^(BOOL success, id data) {
-            
-        }];
         
     } failure:^(NSString * _Nullable reason, NSError * _Nullable error) {
         

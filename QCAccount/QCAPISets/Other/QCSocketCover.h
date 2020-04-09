@@ -26,6 +26,7 @@ typedef void(^didReceiveMessage) (BOOL sucess, NSDictionary *data);
 /// 监听设备状态
 - (void)registerDeviceActive:(NSArray *)deviceIds complete:(didReceiveMessage)success;
 
+
 @end
 
 NS_ASSUME_NONNULL_END
