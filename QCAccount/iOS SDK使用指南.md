@@ -28,7 +28,7 @@
 
 -   打开 AppStore 应用，安装 Xcode
 
-![1557744787861-cab6d176-5964-4678-abe3-6c05a65dfff0](media/1e7f96f7f04b39bd81d9e53e4bbd1118.jpg)
+![1557744787861-cab6d176-5964-4678-abe3-6c05a65dfff0](media/a.jpg)
 
 集成SDK
 -------
@@ -689,7 +689,7 @@ A：Mac查看步骤如下：
 
 -   按住option键，点击桌面右上角WiFi图标
 
-![](media/301fe4112f390baa0273eb122e7bd377.png)
+![](media/b.png)
 
 **Q：设备连接的Wi-Fi名称和密码有什么规范么？**
 
