@@ -689,7 +689,7 @@ A：Mac查看步骤如下：
 
 -   按住option键，点击桌面右上角WiFi图标
 
-![](media/b.png)
+![](media/b.jpg)
 
 **Q：设备连接的Wi-Fi名称和密码有什么规范么？**
 
