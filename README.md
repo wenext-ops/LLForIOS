@@ -13,7 +13,7 @@
 
 ## 文档
 
-更为详尽请参考：[https://github.com/wenext-ops/LLForIOS/blob/master/QCAccount/iOS%20SDK使用指南.docx]
+更为详尽请参考：[iOS SDK使用指南](https://github.com/wenext-ops/LLForIOS/blob/master/QCAccount/iOS%20SDK使用指南.docx)
 
 ## 最新版本
 
